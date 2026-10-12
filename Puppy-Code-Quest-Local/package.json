@@ -1,0 +1,14 @@
+{
+  "name": "puppy-code-quest",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/serve.cjs",
+    "start": "node scripts/serve.cjs",
+    "check": "node --check app.js",
+    "build": "node scripts/build.cjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
