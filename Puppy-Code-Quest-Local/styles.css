@@ -17,3 +17,10 @@
   .layout > .missioncolumn > .under{order:2}
   .layout > .missioncolumn > .arrowcartoon{order:3}
 }
+
+/* On phones, build code before consulting saved walking notes. */
+@media (max-width:850px){
+  .workshop > *{order:2}
+  .workshop > #codePanel,.workshop > #exploreCoach{order:0}
+  .workshop > #notebook{order:1}
+}
