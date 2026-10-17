@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Justin’s Puppy Code Quest</title>
+    <meta
+      name="description"
+      content="Plan, play and debug your way through a puppy coding adventure. Twelve puzzles, repeat blocks and a creative playground."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%237650ed'/%3E%3Cpath d='m13 9-7 7 7 7m6-14 7 7-7 7' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <span class="logo">&lt;/&gt;</span>
+        <div>
+          Justin’s Puppy Code Quest
+          <div class="tag">EXPLORE · PLAN · CREATE</div>
+        </div>
+      </div>
+      <div class="topactions">
+        <button
+          class="soft"
+          id="sound"
+          aria-pressed="true"
+          aria-label="Turn teacher voice off"
+        >
+          🔊 Teacher on</button
+        ><button
+          class="soft"
+          id="voiceSettings"
+          aria-label="Teacher voice settings"
+        >
+          ⚙</button
+        ><button class="soft" id="help">▶ How to play</button>
+      </div>
+    </header>
+    <main>
+      <div class="worldbar">
+        <div>
+          <div class="eyebrow" id="world"></div>
+          <h1 id="title"></h1>
+          <p class="questline">
+            Ready, Justin? Find every star and bring Puppy to the flag.
+          </p>
+        </div>
+        <div class="badge" id="stars">⭐ 0 / 0</div>
+      </div>
+      <div class="modebar" role="group" aria-label="Choose how to play">
+        <button id="walkMode">🐾 1. Walk Puppy</button
+        ><button id="codeMode">🧩 2. Build code</button>
+      </div>
+      <div class="layout">
+        <div class="missioncolumn">
+          <section class="boardpanel" aria-label="Puzzle and walking controls">
+            <div class="boardtop">
+              <span id="mission"></span
+              ><button class="tiny" id="hear">🔊 Hear mission</button>
+            </div>
+            <div id="buildertools" class="buildertools hidden"></div>
+            <div class="board" id="board"></div>
+            <div
+              id="clueRoute"
+              class="clueroute hidden"
+              aria-label="Winning route directions"
+            ></div>
+            <div class="boardstatus" id="boardStatus" aria-live="polite"></div>
+            <div id="walkControls" class="walkcontrols">
+              <div class="pad" role="group" aria-label="Move Puppy now">
+                <button
+                  id="walkU"
+                  data-walk="U"
+                  class="padbutton up"
+                  aria-label="Walk up"
+                >
+                  ↑</button
+                ><button
+                  id="walkL"
+                  data-walk="L"
+                  class="padbutton left"
+                  aria-label="Walk left"
+                >
+                  ←</button
+                ><span class="padcenter" aria-hidden="true">🐾</span
+                ><button
+                  id="walkR"
+                  data-walk="R"
+                  class="padbutton right"
+                  aria-label="Walk right"
+                >
+                  →</button
+                ><button
+                  id="walkD"
+                  data-walk="D"
+                  class="padbutton down"
+                  aria-label="Walk down"
+                >
+                  ↓
+                </button>
+              </div>
+              <div class="walkcopy">
+                <h2>Move Puppy now</h2>
+                <p>
+                  Tap the green arrows or a glowing square.<br />Keyboard arrow
+                  keys work too.
+                </p>
+                <div class="walkbuttons">
+                  <button class="soft" id="walkUndo">↶ Undo move</button
+                  ><button class="soft" id="walkReset">⟲ New walk</button>
+                </div>
+              </div>
+            </div>
+            <button class="tiny noteslink" id="stepSound" aria-pressed="true">
+              🔊 Footsteps on</button
+            ><button class="tiny noteslink" id="seeNotes">
+              📝 View my path notes
+            </button>
+            <div class="legend">
+              <span>⭐ Collect</span><span>🌲 Go around</span
+              ><span>🔑 Unlock</span><span>🏁 Finish</span>
+            </div>
+          </section>
+          <div class="under">
+            <div>
+              <div class="eyebrow">Your adventure map</div>
+              <div
+                class="levelnav"
+                id="levels"
+                aria-label="Choose a mission"
+              ></div>
+            </div>
+            <button class="soft" id="build">🛠 Make a level</button>
+          </div>
+          <div class="arrowcartoon" aria-label="Puppy direction guide">
+            <div class="minicompass">
+              <button
+                class="compass up"
+                data-demo-dir="U"
+                aria-label="Show puppy moving up"
+              >
+                ↑</button
+              ><button
+                class="compass left"
+                data-demo-dir="L"
+                aria-label="Show puppy moving left"
+              >
+                ←
+              </button>
+              <div class="minidog" id="miniDog" aria-hidden="true">🐶</div>
+              <button
+                class="compass right"
+                data-demo-dir="R"
+                aria-label="Show puppy moving right"
+              >
+                →</button
+              ><button
+                class="compass down"
+                data-demo-dir="D"
+                aria-label="Show puppy moving down"
+              >
+                ↓
+              </button>
+            </div>
+            <div class="cartooncopy">
+              <strong id="arrowMeaning">One arrow. One step.</strong>
+              <p>Tap an arrow to see Puppy move.</p>
+              <button class="soft" id="watchDemo">▶ Watch how to play</button>
+            </div>
+          </div>
+        </div>
+        <section class="workshop" aria-label="Path notes and code builder">
+          <section
+            class="notebook"
+            id="notebook"
+            aria-label="Automatic path notes"
+          >
+            <div class="paneltitle">
+              <div>
+                <div class="notelabel">SAVED AS YOU WALK</div>
+                <h2>📝 My path notes <span id="noteCount"></span></h2>
+              </div>
+              <button class="soft" id="toggleNotes" aria-expanded="true">
+                Hide
+              </button>
+            </div>
+            <div class="notes" id="notes"></div>
+            <p class="notehelp" id="noteHelp">
+              These are your walking steps. Your code is built separately below.
+            </p>
+          </section>
+          <div id="exploreCoach" class="coach">
+            <div class="coachicon" id="coachIcon">🧭</div>
+            <h2 id="coachTitle">Let’s explore, Justin!</h2>
+            <p id="coachText">
+              You can explore as much as you like. Go around trees, collect
+              stars, and try a different turn whenever you want.
+            </p>
+            <div class="checkpoints">
+              <span id="checkExplore">🐾 Explore</span
+              ><span id="checkStars">⭐ Collect</span
+              ><span id="checkFlag">🏁 Arrive</span>
+            </div>
+            <button class="run" id="writeNow">🧩 Build my code</button>
+            <p class="muted">Your notes stay here to help you.</p>
+          </div>
+          <div id="codePanel" class="codepanel hidden">
+            <div class="paneltitle">
+              <h2>Add a move</h2>
+              <span class="muted" id="count"></span>
+            </div>
+            <div class="palette">
+              <button class="move" data-dir="U">
+                <span>↑</span><small>Add up</small></button
+              ><button class="move" data-dir="D">
+                <span>↓</span><small>Add down</small></button
+              ><button class="move" data-dir="L">
+                <span>←</span><small>Add left</small></button
+              ><button class="move" data-dir="R">
+                <span>→</span><small>Add right</small>
+              </button>
+            </div>
+            <div class="codearea" id="code" aria-label="Your program"></div>
+            <div class="hidden" id="blockEdit">
+              <div class="editrow">
+                <button class="soft" id="insertBefore">Insert before</button
+                ><button class="soft" id="insertAfter">Insert after</button
+                ><button
+                  class="delete-red"
+                  id="deleteBlock"
+                  title="Delete this block"
+                  aria-label="Delete this block"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"
+                    />
+                  </svg></button
+                ><button class="soft" id="closeEdit">Done</button>
+              </div>
+              <div class="blockedit">
+                <strong id="editLabel">Change this move</strong>
+                <div id="replaceButtons" class="replacements">
+                  <button data-replace="U" aria-label="Replace with Up">
+                    ↑</button
+                  ><button data-replace="D" aria-label="Replace with Down">
+                    ↓</button
+                  ><button data-replace="L" aria-label="Replace with Left">
+                    ←</button
+                  ><button data-replace="R" aria-label="Replace with Right">
+                    →
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="tools">
+              <span class="muted"
+                >Tap an arrow to edit · Drag outside this box to delete.</span
+              >
+              <div>
+                <button class="soft" id="undo">↶ Undo</button
+                ><button class="tiny" id="clear">Clear</button>
+              </div>
+            </div>
+            <div class="runs">
+              <button class="run" id="run">▶ Test code</button
+              ><button class="step" id="step">One step</button>
+            </div>
+            <details class="testsetting">
+              <summary>⚙ Parent: arrows before testing</summary>
+              <label for="testMinimum"
+                >New arrows needed since the last test</label
+              >
+              <select id="testMinimum">
+                <option value="0">Any time</option>
+                <option value="1">1 new arrow</option>
+                <option value="2">2 new arrows</option>
+                <option value="3">3 new arrows</option>
+                <option value="4">4 new arrows</option>
+                <option value="5">5 new arrows</option>
+                <option value="6">6 new arrows</option>
+                <option value="7">7 new arrows</option>
+                <option value="8">8 new arrows</option>
+                <option value="9">9 new arrows</option>
+                <option value="10">10 new arrows</option>
+                <option value="11">11 new arrows</option>
+                <option value="12">12 new arrows</option>
+                <option value="13">13 new arrows</option>
+                <option value="14">14 new arrows</option>
+                <option value="15">15 new arrows</option>
+                <option value="16">16 new arrows</option>
+                <option value="17">17 new arrows</option>
+                <option value="18">18 new arrows</option>
+                <option value="19">19 new arrows</option>
+                <option value="20">20 new arrows</option>
+              </select>
+            </details>
+            <div class="tools">
+              <button class="tiny" id="reset">⟲ Back to start</button
+              ><label class="muted"
+                >Pace
+                <select id="pace">
+                  <option value="600">Walk</option>
+                  <option value="280">Zoom</option>
+                </select></label
+              >
+            </div>
+            <p class="muted bonus" id="budget"></p>
+          </div>
+          <div class="message" id="message" aria-live="polite"></div>
+          <button class="tiny" id="hint">💡 Give me a clue</button
+          ><button class="next hidden" id="next">Next adventure</button>
+        </section>
+      </div>
+      <p class="footnote">
+        No timer. No lost lives. Notes stay until you change the level. Badges
+        stay on this browser.
+      </p>
+    </main>
+    <dialog id="helpDialog">
+      <button class="soft close" id="closeHelp">Close</button>
+      <h2>Little steps. Big ideas.</h2>
+      <div class="helpgrid">
+        <b>🐾</b>
+        <p>
+          <strong>Walk Puppy:</strong> green arrows move Puppy straight away.
+          Glowing squares are safe places to step. Trees and locked gates stay
+          in the way, but there is no penalty.
+        </p>
+        <b>📝</b>
+        <p>
+          <strong>My path notes:</strong> each move appears here automatically.
+          Undo removes the last step. Hide your notes for a memory challenge.
+        </p>
+        <b>🧩</b>
+        <p>
+          <strong>Build code:</strong> purple arrows add instructions. Puppy
+          returns to the start. Use your notes, but build your code yourself.
+        </p>
+        <b>▶</b>
+        <p>
+          <strong>Test code:</strong> watch Puppy follow your instructions. Tap
+          any block to change its direction or insert a missing move. Undo
+          brings back your last edit.
+        </p>
+        <b>🏅</b>
+        <p>
+          Every solved program counts! A shorter program earns an optional gold
+          badge.
+        </p>
+      </div>
+      <button class="run" id="playHelp">Let's explore!</button>
+    </dialog>
+    <dialog id="voiceDialog">
+      <button class="soft close" id="closeVoice">Close</button>
+      <h2>Justin’s cheering teacher</h2>
+      <p>
+        A bright, natural voice with a slightly quicker pace to cheer Justin on.
+      </p>
+      <label for="teacherVoice">Teacher voice</label
+      ><select id="teacherVoice" aria-label="Choose a teacher voice"></select>
+      <p class="muted" id="voiceStatus"></p>
+      <button class="run" id="testVoice">🔊 Hear a cheer</button>
+      <p class="muted">
+        Teacher on / off controls speech and celebrations. Footsteps have their
+        own sound switch below the board.
+      </p>
+    </dialog>
+    <dialog id="demoDialog">
+      <button class="soft close" id="closeDemo">Close</button>
+      <h2>Watch Puppy learn!</h2>
+      <div class="demophases">
+        <span id="phaseWalk">1. Walk</span><span id="phaseCode">2. Build</span
+        ><span id="phaseTest">3. Test</span>
+      </div>
+      <p id="demoCaption" aria-live="polite">First, explore a path.</p>
+      <div class="demoBoard" id="demoBoard">
+        <span class="demoStar" id="demoStar">⭐</span
+        ><span class="demoFlag">🏁</span
+        ><span class="demoPup" id="demoPup">🐶</span>
+      </div>
+      <div
+        class="demoCode"
+        id="demoCode"
+        aria-label="Demonstration instructions"
+      ></div>
+      <div class="demobuttons">
+        <button class="run" id="playDemo">▶ Replay</button
+        ><button class="soft" id="pauseDemo">Pause</button
+        ><button class="soft" id="doneDemo">My turn!</button>
+      </div>
+    </dialog>
+    <div id="confetti" class="confetti" aria-hidden="true"></div>
+    <script src="levels.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>

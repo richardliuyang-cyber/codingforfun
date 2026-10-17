@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Little Fire Rescue</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <div class="mast">
+        <div class="brand">
+          <svg viewBox="0 0 44 44">
+            <rect width="44" height="44" rx="13" fill="#e9eee1" />
+            <path
+              d="M22 7l13 6v10c0 9-13 15-13 15S9 32 9 23V13z"
+              fill="#dd725b"
+            />
+            <path
+              d="M21 15c-8 8-6 15 1 15s10-7 4-12c0 4-3 4-3 4s1-4-2-7"
+              fill="#ffedb1"
+            />
+          </svg>
+          <div>
+            Little Fire Rescue
+            <div class="tag">SMALL STEPS. BIG HELPERS.</div>
+          </div>
+        </div>
+        <div>
+          <button id="sound" class="soft">♪ Teacher on</button>
+          <button id="help" class="soft">? Help</button>
+        </div>
+      </div>
+      <div class="intro">
+        <div>
+          <div id="world" class="eyebrow"></div>
+          <h1 id="title"></h1>
+          <p id="subtitle" class="sub"></p>
+        </div>
+        <div class="badge">
+          <span>🏅</span>
+          <div><b id="rescues">0 / 1</b><small>FRIENDS RESCUED</small></div>
+        </div>
+      </div>
+      <div class="layout">
+        <div class="leftcol">
+          <section class="scene">
+            <div class="sceneheader">
+              <span id="mission"></span
+              ><span id="water" class="water">💧 Water ready</span>
+            </div>
+            <div class="mapframe">
+              <div class="map" id="map">
+                <div id="tiles" class="tiles"></div>
+                <div id="truck" class="truck">
+                  <div class="truckwrap" id="truckwrap"></div>
+                </div>
+                <svg id="effects" class="effects" viewBox="0 0 100 100"></svg>
+              </div>
+            </div>
+            <div id="status" class="status" aria-live="polite"></div>
+            <div class="drive" id="drive">
+              <div class="pad">
+                <button class="up" data-drive="U" aria-label="Drive up">
+                  ↑</button
+                ><button class="left" data-drive="L" aria-label="Drive left">
+                  ←</button
+                ><span class="center">✦</span
+                ><button class="right" data-drive="R" aria-label="Drive right">
+                  →</button
+                ><button class="down" data-drive="D" aria-label="Drive down">
+                  ↓
+                </button>
+              </div>
+              <div>
+                <h3>Take the wheel</h3>
+                <p>
+                  Green arrows drive the truck.<br />Your actions are saved as
+                  notes.
+                </p>
+                <div class="actions">
+                  <button data-drive="F">💧 Fill</button
+                  ><button data-drive="S">〰 Spray</button
+                  ><button data-drive="A">♡ Rescue</button>
+                </div>
+                <div class="actions" style="margin-top: 7px">
+                  <button id="driveUndo">↶ Undo</button
+                  ><button id="driveReset">↺ New drive</button>
+                </div>
+              </div>
+            </div>
+            <div class="legend">
+              <span>🌳 Go around</span><span>💧 Refill here</span
+              ><span>♡ Help a friend</span>
+            </div>
+          </section>
+          <section class="missions">
+            <div class="eyebrow">Your rescue map</div>
+            <div id="missions" class="groups"></div>
+            <button id="makeLevel" class="soft builder-launch">
+              ＋ Parent: Make your own town
+            </button>
+          </section>
+          <details class="teacher-options">
+            <summary>Parent: Voice &amp; engine sound</summary>
+            <label for="teacherVoice">Teacher voice</label
+            ><select id="teacherVoice">
+              <option value="">Best available natural voice</option>
+            </select>
+            <p>
+              Natural voices sound warmer. Available voices depend on your
+              browser and device.
+            </p>
+            <div>
+              <button id="previewTeacher" class="soft">
+                Hear “Good job, Justin!”</button
+              ><button id="engineSound" class="soft" aria-pressed="true">
+                Engine sound on
+              </button>
+            </div>
+          </details>
+          <div class="guide">
+            <strong>Park beside the building. Spray. Then rescue.</strong
+            ><br />A full tank puts out one fire. Stand beside a blue hydrant
+            and choose <b>Fill</b> to get more water.
+          </div>
+        </div>
+        <section class="work">
+          <div class="tabs">
+            <button id="exploreTab" class="active">🚒 1. Explore</button
+            ><button id="codeTab">🧩 2. Build code</button>
+          </div>
+          <div id="explorePanel">
+            <div class="eyebrow">TRY YOUR IDEAS</div>
+            <h2>Every rescue starts<br />with a little plan.</h2>
+            <p class="lead">
+              Drive around your town. Find the friend who needs your help.
+            </p>
+            <div class="heroTip">
+              <b>①</b> Park on a road beside the building.<br /><b>②</b> Use
+              <b>Spray</b> to put out the little fire.<br /><b>③</b> Choose
+              <b>Rescue</b> to help your friend.
+            </div>
+            <button id="buildNow" class="primary">
+              I've got a plan → Build my code
+            </button>
+          </div>
+          <div id="codePanel" hidden>
+            <div class="eyebrow">YOU ARE THE PROGRAMMER</div>
+            <h2>Build my code</h2>
+            <p class="muted">
+              Add instructions in the order they should happen.
+            </p>
+            <div class="palette">
+              <button data-add="U">↑<small>Up</small></button
+              ><button data-add="D">↓<small>Down</small></button
+              ><button data-add="L">←<small>Left</small></button
+              ><button data-add="R">→<small>Right</small></button>
+            </div>
+            <div class="special">
+              <button data-add="F">💧 Fill</button
+              ><button data-add="S">〰 Spray</button
+              ><button data-add="A">♡ Rescue</button>
+            </div>
+            <div class="codehead">
+              <b>Your instructions</b><span id="count">0 blocks</span>
+            </div>
+            <div id="program" class="program"></div>
+            <div id="editHint" class="muted">
+              Tap to edit · Drag a block outside the box to remove it.
+            </div>
+            <div id="editRow" class="editrow" hidden>
+              <button class="soft" id="insertBefore">Insert before</button
+              ><button class="soft" id="insertAfter">Insert after</button
+              ><button
+                class="delete-red"
+                id="remove"
+                title="Delete this block"
+                aria-label="Delete this block"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"
+                  />
+                </svg></button
+              ><button class="soft" id="doneEdit">Done</button>
+            </div>
+            <div class="tools">
+              <button id="undo" class="soft">↶ Undo</button
+              ><button id="clear" class="soft">Clear</button>
+            </div>
+            <button id="test" class="primary">▶ Test my code</button>
+            <div class="tools">
+              <button id="step" class="soft">One step</button
+              ><button id="reset" class="soft">↺ Start</button
+              ><label
+                >Pace
+                <select id="pace">
+                  <option value="650">Slow</option>
+                  <option value="330">Normal</option>
+                </select></label
+              >
+            </div>
+          </div>
+          <div class="notebook">
+            <div class="noteshead">
+              <span>SAVED AS YOU DRIVE</span
+              ><button id="hideNotes" class="soft">Hide</button>
+            </div>
+            <div id="notes" class="notes"></div>
+          </div>
+          <button id="clue" class="clue">💡 Give me a clue</button>
+          <div id="clueText" class="cluelist" hidden></div>
+          <div id="feedback" class="feedback" aria-live="polite"></div>
+          <div id="success" class="success" hidden>
+            <b>Good job, Justin! You saved the day!</b>
+            <p id="successText" style="font-size: 12px"></p>
+            <button id="next" class="primary">Next rescue →</button>
+          </div>
+        </section>
+      </div>
+      <p class="footer">
+        Explore freely · Fix one step at a time · No timer. No lost lives.
+      </p>
+    </main>
+    <dialog id="helpDialog">
+      <h2>Welcome to the rescue crew!</h2>
+      <p>
+        Drive with the green arrows or your keyboard. Roads are light gray.
+        Buildings, trees and hydrants cannot be driven through.
+      </p>
+      <p>
+        Park directly beside a building—up, down, left or right. Choose
+        <b>Spray</b> to put out its fire, then <b>Rescue</b>. One full tank
+        handles one fire.
+      </p>
+      <p>
+        When your tank is empty, park beside a blue hydrant and choose
+        <b>Fill</b>.
+      </p>
+      <p>
+        Your driving actions appear in notes. Switch to <b>Build code</b> and
+        put the same actions into a program. Test it, or try one step at a time.
+      </p>
+      <button id="closeHelp" class="primary">Let's help!</button>
+    </dialog>
+    <dialog id="builderDialog" aria-labelledby="builderTitle">
+      <div class="builder-head">
+        <h2 id="builderTitle">Build your own rescue town</h2>
+        <button class="soft" id="closeBuilder">Done</button>
+      </div>
+      <p class="builder-note">
+        Choose a tile, then tap the map to paint. Place one truck station, up to
+        three animal houses, roads, trees, and hydrants.
+      </p>
+      <div class="builder-settings">
+        <label
+          >Grid size
+          <select id="builderSize">
+            <option value="3">3 × 3</option>
+            <option value="4">4 × 4</option>
+            <option value="5">5 × 5</option>
+            <option value="6">6 × 6</option>
+            <option value="7">7 × 7</option>
+          </select></label
+        ><label
+          >Starting water
+          <select id="builderWater">
+            <option value="1">Full tank</option>
+            <option value="0">Empty tank</option>
+          </select></label
+        >
+      </div>
+      <p class="builder-note">
+        Changing size starts a fresh map. Your draft saves on this browser.
+      </p>
+      <div class="paint-tools" id="paintTools"></div>
+      <div id="builderGrid" aria-label="Custom town map"></div>
+      <p id="builderMessage" role="status" aria-live="polite"></p>
+      <div class="builder-actions">
+        <button class="soft" id="clearTown">Clear map</button
+        ><button class="soft" id="checkTown">Check my town</button
+        ><button class="primary" id="playTown">▶ Play my town</button>
+      </div>
+    </dialog>
+    <script src="levels.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>

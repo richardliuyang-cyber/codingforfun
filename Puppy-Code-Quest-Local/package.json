@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/serve.cjs",
-    "start": "node scripts/serve.cjs",
-    "check": "node --check app.js",
+    "dev": "node scripts/serve.mjs",
+    "start": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs",
     "build": "node scripts/build.cjs"
   },
   "engines": {
