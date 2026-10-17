@@ -690,8 +690,11 @@ dialog p {
   .missions {
     order: 2;
   }
-  .guide {
+  .teacher-options {
     order: 3;
+  }
+  .guide {
+    order: 4;
   }
   h1 {
     font-size: 27px;
